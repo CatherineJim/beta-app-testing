@@ -91,19 +91,19 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative h-full w-full flex justify-center items-center">
       {/* <Navbar /> */}
 
       <div
         class={`${
           openModal === true ? "absolute" : "hidden "
-        } bottom-0 left-0 right-0 bg-white h-full w-full`}
+        } bottom-0 left-0 right-0 bg-white h-1/3 w-1/2`}
       >
         sdfgsfg
       </div>
 
       <div
-        className="bg-white p-4 rounded-lg shadow-2xl"
+        className="bg-white p-4 rounded-lg shadow-2xl w-fit"
         style={{ marginLeft: "10px" }}
       >
         <div className="heading">
