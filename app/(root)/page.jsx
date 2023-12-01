@@ -2,6 +2,7 @@
 import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
 import styled from "styled-components";
+import bg from "@/assets/images/bg.jpg";
 
 export const StartButton = styled.button`
   width: 300px;
@@ -20,10 +21,10 @@ const Home = () => {
           backgroundPosition: "50%",
           backgroundImage:
             "url('https://th.bing.com/th/id/R.da835f78875f68bd782ed3b1bf4f0524?rik=pamecHCGZnyHRA&riu=http%3a%2f%2fwww.validata-software.com%2fimages%2fValidata_Quality_Suite%2fMobile_Testing%2fMobile_Testing.jpg&ehk=MVxZizIyiVbromebwwBAtUV6MejmX22prPw8zsy3SP4%3d&risl=&pid=ImgRaw&r=0');",
-          height: "500px;",
+          height: "600px;",
         }}
       >
-        <div className="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsla(0,0%,0%,0.75)] bg-fixed">
+        <div className="h-full py-12 w-full overflow-hidden bg-[hsla(0,0%,0%,0.75)] bg-fixed">
           <div className="flex h-full items-center justify-center">
             <div className="px-6 text-center text-white md:px-12">
               <h1 className="mt-2 mb-6 text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl">

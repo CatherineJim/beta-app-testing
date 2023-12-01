@@ -316,9 +316,7 @@ const layout = ({ children }) => {
             </div>
           </div>
         </nav>
-        <section className="flex justify-start m-6 min-h-screen">
-          {children}
-        </section>
+        <section className="flex m-6 min-h-screen">{children}</section>
       </div>
     </main>
   );

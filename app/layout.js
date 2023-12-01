@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "tw-elements/dist/css/tw-elements.min.css";
 import { ContextProvider } from "@/context";
+import { Providers } from "./nextUIProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,7 +15,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <ContextProvider>
-        <body className={inter.className}>{children}</body>
+        <Providers>
+          <body className={inter.className}>{children}</body>
+        </Providers>
       </ContextProvider>
     </html>
   );
