@@ -1,11 +1,11 @@
 import { server } from "../constants/server";
 import axiosInstance from "../constants/axios";
 
-export const createDeveloper = async (form) => {
+export const createUser = async (form) => {
   let data = null;
   let error = null;
   try {
-    const response = await axiosInstance.post(`${server}developer`, form);
+    const response = await axiosInstance.post(`${server}user/signup`, form);
     data = response.data;
 
     console.log("====================================");

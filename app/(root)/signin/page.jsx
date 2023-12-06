@@ -24,17 +24,13 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   useDisclosure,
   Input,
   Tabs,
   Tab,
-  Card,
-  CardBody,
-  Link as NextLink,
   Button,
 } from "@nextui-org/react";
-import { createDeveloper } from "@/services/auth";
+import { createUser } from "@/services/auth";
 
 export const LoginForm = () => {
   const [form, setForm] = useState({
@@ -44,18 +40,17 @@ export const LoginForm = () => {
 
   const [selected, setSelected] = useState("developer");
 
+  const { setUser, user } = useContext(Context);
+
   const [profile, setProfile] = useState({
     domain: "",
     companyName: "",
     password: "",
     confirmPassword: "",
-    fullName: "",
     role: selected,
   });
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-  const { setUser, user } = useContext(Context);
 
   const [userDetails, setUserDetails] = useState();
 
@@ -83,7 +78,9 @@ export const LoginForm = () => {
         console.log(response.data.data, "response");
         alert(response.data.data.user.email);
         setUserDetails(response.data.data.user);
-        router.push("/role");
+        localStorage.setItem("user", JSON.stringify(response.data.data.user));
+        setUser(response.data.data.user);
+        window.location.href = "/dashboard";
         console.log("====================================");
       }
     } catch (error) {
@@ -117,12 +114,19 @@ export const LoginForm = () => {
     }
   };
 
-  const handleCreateDeveloper = async (e) => {
+  const handleCreateUser = async (e) => {
     e.preventDefault();
     if (!user) return;
-    profile.fullName = user?.fullName;
+    console.log(user, "user");
 
-    const { data, error } = await createDeveloper(profile);
+    const profileData = {
+      ...profile,
+      uid: user?.uid,
+      email: user?.email,
+      fullName: user?.displayName,
+    };
+    console.log("====================================");
+    const { data, error } = await createUser(profileData);
 
     if (data) {
       console.log("====================================");
@@ -145,9 +149,21 @@ export const LoginForm = () => {
     setProfile({ ...profile, [name]: value });
   };
 
+  useEffect(() => {
+    if (!userDetails) return;
+    console.log("====================================");
+    console.log(userDetails);
+    console.log("====================================");
+    setProfile({
+      ...profile,
+      fullName: userDetails?.displayName,
+      email: userDetails?.email,
+      uid: userDetails?.uid,
+    });
+  }, [userDetails]);
+
   return (
     <>
-      <button onClick={onOpen}>sdfgdsf</button>
       <Modal
         isOpen={isOpen}
         placement="center"
@@ -225,7 +241,7 @@ export const LoginForm = () => {
                         <div className="flex gap-2 justify-end">
                           <Button
                             className="w-fit !bg-pink-900"
-                            onClick={handleCreateDeveloper}
+                            onClick={handleCreateUser}
                             color="primary"
                           >
                             Submit
@@ -262,7 +278,7 @@ export const LoginForm = () => {
                         <div className="flex gap-2 justify-end">
                           <Button
                             className="w-fit !bg-pink-900"
-                            onClick={handleCreateDeveloper}
+                            onClick={handleCreateUser}
                             color="primary"
                           >
                             Submit
@@ -330,15 +346,10 @@ export const LoginForm = () => {
                 <a href="#" target="_blank">
                   Forgot password?
                 </a>
-                <p>
-                  Don't have an account?
-                  <Link href="/signup" target="_blank">
-                    Sign in
-                  </Link>
-                </p>
+                <p></p>
               </div>
               <div className="col flex flex-col items-center">
-                <p className="text-center mb-2">Or sign in with</p>
+                <p className="text-center mb-2">Or sign up with</p>
                 <div className="flex justify-content-center space-x-6">
                   <FaFacebook
                     role="button"
